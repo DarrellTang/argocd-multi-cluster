@@ -6,11 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/DarrellTang/argocd-multi-cluster.git
-    targetRevision: HEAD
-    path: metallb
-    directory:
-      recurse: true
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 0.13.7
+    chart: metallb
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb
@@ -20,16 +18,3 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-  syncStrategy:
-    hook:
-      postSync:
-        - name: metallb-crds
-          type: Sync
-          hooks:
-          - events: ["PostSync"]
-            manifestPath: .
-  ignoreDifferences:
-  - group: metallb.io
-    kind: L2Advertisement
-    jsonPointers:
-    - /spec/ipAddressPools

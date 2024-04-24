@@ -9,14 +9,30 @@ spec:
     repoURL: https://github.com/DarrellTang/argocd-multi-cluster.git
     targetRevision: HEAD
     path: host/metallb
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: metallb
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+  syncStrategy:
+    hook:
+      postSync:
+        - name: metallb-crds
+          type: Sync
+          hooks:
+          - events: ["PostSync"]
+            manifestPath: .
   ignoreDifferences:
+  - group: metallb.io
+    kind: L2Advertisement
+    jsonPointers:
+    - /spec/ipAddressPools
   - group: argoproj.io
     kind: Application
     jsonPointers:
