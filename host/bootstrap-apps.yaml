@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/DarrellTang/argocd-multi-cluster.git
     targetRevision: HEAD
-    path: apps
+    path: host/apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
