@@ -4,7 +4,7 @@ metadata:
   name: default
   namespace: metallb
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   addresses:
   - 10.0.0.20-10.0.0.30
