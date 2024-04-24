@@ -27,7 +27,7 @@ spec:
           type: Sync
           hooks:
           - events: ["PostSync"]
-            manifestPath: .
+            manifestPath: host/metallb
   ignoreDifferences:
   - group: metallb.io
     kind: L2Advertisement
