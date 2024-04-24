@@ -20,19 +20,7 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-  syncStrategy:
-    hook:
-      postSync:
-        - name: metallb-crds
-          type: Sync
-          hooks:
-          - events: ["PostSync"]
-            manifestPath: host/metallb/crds
   ignoreDifferences:
-  - group: metallb.io
-    kind: L2Advertisement
-    jsonPointers:
-    - /spec/ipAddressPools
   - group: argoproj.io
     kind: Application
     jsonPointers:

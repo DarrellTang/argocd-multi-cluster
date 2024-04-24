@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: metallb-helm
   namespace: argocd
+  argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:

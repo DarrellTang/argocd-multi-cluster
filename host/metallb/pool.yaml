@@ -3,6 +3,7 @@ kind: IPAddressPool
 metadata:
   name: default
   namespace: metallb
+  argocd.argoproj.io/sync-wave: "1"
 spec:
   addresses:
   - 10.0.0.20-10.0.0.30
