@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress-helm
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    chart: ingress-nginx
+    targetRevision: 4.0.6
+    helm:
+      values: |
+        controller:
+          replicaCount: 2
+          nodeSelector:
+            kubernetes.io/os: linux
+          admissionWebhooks:
+            enabled: false
+          service:
+            type: LoadBalancer
+            externalTrafficPolicy: Local
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
