@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - argocd.host.tanghome.us
-    secretName: argocd-tls-prod
+    secretName: argocd-server-tls
   rules:
   - host: argocd.host.tanghome.us
     http:
