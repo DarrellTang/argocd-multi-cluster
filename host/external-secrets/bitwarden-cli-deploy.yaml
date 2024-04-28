@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: bitwarden-cli
-          image: ghcr.io/darrelltang/docker-bitwarden-cli:v0.0.5
+          image: ghcr.io/darrelltang/docker-bitwarden-cli:main
           imagePullPolicy: IfNotPresent
           command:
             - /entrypoint.sh
