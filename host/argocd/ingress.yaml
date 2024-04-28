@@ -4,7 +4,7 @@ metadata:
   name: argocd-ingress
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - argocd.host.tanghome.us
-    secretName: argocd-tls-staging
+    secretName: argocd-tls-prod
   rules:
   - host: argocd.host.tanghome.us
     http:
