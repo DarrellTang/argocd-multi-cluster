@@ -12,6 +12,8 @@ spec:
     helm:
       values: |
         controller:
+          extraArgs:
+            enable-ssl-passthrough: true
           replicaCount: 2
           nodeSelector:
             kubernetes.io/os: linux
