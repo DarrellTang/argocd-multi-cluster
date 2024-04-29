@@ -11,15 +11,11 @@ spec:
     chart: csi-driver-nfs
     helm:
       values: |
-        nfs:
-          server: 10.0.0.4
-          path: /mnt/Lab/csi-driver-nfs
-        storageClass:
-          name: nfs-csi
-          defaultClass: true
-          reclaimPolicy: Retain
-          volumeBindingMode: Immediate
-          allowVolumeExpansion: true
+        externalSnapshotter: 
+          enabled: true
+        controller:
+          runOnControlPlane: true
+          replicas: 2
   destination:
     server: https://kubernetes.default.svc
     namespace: csi-driver-nfs
