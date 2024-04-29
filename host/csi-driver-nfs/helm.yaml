@@ -16,7 +16,7 @@ spec:
         controller:
           runOnControlPlane: true
           replicas: 2
-          workingMountDir: /var/run
+          workingMountDir: /var
   destination:
     server: https://kubernetes.default.svc
     namespace: csi-driver-nfs
