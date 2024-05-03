@@ -20,6 +20,7 @@ spec:
           provisionerName: k8s-sigs.io/nfs-subdir-external-provisioner
           reclaimPolicy: Retain
           allowVolumeExpansion: true
+          accessModes: ReadWriteMany
   destination:
     server: https://kubernetes.default.svc
     namespace: nfs-provisioner
