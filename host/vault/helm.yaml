@@ -56,6 +56,7 @@ spec:
                   leader_api_addr = "https://vault-helm-2.vault-helm-internal:8200"
                 }
               }
+              service_registration "kubernetes" {}
   destination:
     server: https://kubernetes.default.svc
     namespace: vault
