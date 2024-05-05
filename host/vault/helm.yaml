@@ -56,9 +56,6 @@ spec:
                   leader_api_addr = "https://vault-helm-2.vault-helm-internal:8200"
                 }
               }
-        ui:
-          enabled: true
-          serviceType: ClusterIP
   destination:
     server: https://kubernetes.default.svc
     namespace: vault
