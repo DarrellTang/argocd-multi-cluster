@@ -33,6 +33,7 @@ spec:
             size: 10Gi
           ha:
             enabled: true
+            cluster_address: "https://vault-helm-internal:8201"
             raft:
               enabled: true
               setNodeId: true
@@ -41,7 +42,7 @@ spec:
               listener "tcp" {
                 tls_disable = 1
                 address = "[::]:8200"
-                cluster_address = "https://vault-helm-internal:8201"
+                cluster_address = "[::]:8201"
               }
               storage "raft" {
                 path = "/vault/data"
