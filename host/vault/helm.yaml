@@ -33,7 +33,7 @@ spec:
             size: 10Gi
           ha:
             enabled: true
-            cluster_address: "https://vault-helm-internal:8201"
+            cluster_addr: "https://vault-helm-internal:8201"
             raft:
               enabled: true
               setNodeId: true
