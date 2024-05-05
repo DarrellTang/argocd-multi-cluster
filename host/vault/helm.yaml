@@ -12,7 +12,6 @@ spec:
     helm:
       values: |
         server:
-          replicas: 3
           ingress:
             enabled: true
             hosts:
@@ -32,7 +31,11 @@ spec:
             enabled: true
             storageClass: "nfs-provisioner"
             size: 10Gi
-          standalone:
+          ha:
+            enabled: true
+            raft:
+              enabled: true
+              setNodeId: true
             config: |
               ui = true
               listener "tcp" {
@@ -40,7 +43,7 @@ spec:
                 address = "[::]:8200"
                 cluster_address = "[::]:8201"
               }
-              storage "file" {
+              storage "raft" {
                 path = "/vault/data"
               }
         ui:
