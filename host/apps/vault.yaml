@@ -1,20 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pixie
+  name: vault
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/DarrellTang/argocd-multi-cluster.git
+    path: host/vault
     targetRevision: HEAD
-    path: host/pixie
   destination:
     server: https://kubernetes.default.svc
-    namespace: pl
+    namespace: vault
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
