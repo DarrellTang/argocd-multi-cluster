@@ -12,6 +12,7 @@ spec:
     helm:
       values: |
         server:
+          replicas: 3
           ingress:
             enabled: true
             hosts:
