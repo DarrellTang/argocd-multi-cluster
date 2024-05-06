@@ -12,7 +12,7 @@ spec:
     helm:
       values: |
         global:
-          tlsDisable: true
+          tlsDisable: false
         server:
           ingress:
             enabled: true
