@@ -16,8 +16,9 @@ spec:
         server:
           ingress:
             enabled: true
-            activeService: false
+            activeService: true
             ingressClassName: nginx
+            pathType: Prefix
             hosts:
               - host: vault.host.tanghome.us
                 paths:
@@ -45,6 +46,7 @@ spec:
                 listener "tcp" {
                   address = "[::]:8200"
                   cluster_address = "[::]:8201"
+                  tls_min_version = "tls12"
                 }
                 storage "raft" {
                   path = "/vault/data"
