@@ -11,14 +11,11 @@ spec:
     targetRevision: 0.23.0
     helm:
       values: |
-        global:
-          tlsDisable: false
         server:
           ingress:
             enabled: true
             activeService: true
             ingressClassName: nginx
-            pathType: Prefix
             hosts:
               - host: vault.host.tanghome.us
                 paths:
@@ -43,7 +40,6 @@ spec:
               setNodeId: true
               config: |
                 ui = true
-                log_level = "debug"
                 listener "tcp" {
                   tls_disable = true
                   address = "[::]:8200"
