@@ -36,6 +36,7 @@ spec:
             size: 10Gi
           ha:
             enabled: true
+            apiAddr: https://vault.host.tanghome.us
             raft:
               enabled: true
               setNodeId: true
