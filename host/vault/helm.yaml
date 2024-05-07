@@ -45,7 +45,7 @@ spec:
                 ui = true
                 log_level = "debug"
                 listener "tcp" {
-                  tls_disable: true
+                  tls_disable = true
                   address = "[::]:8200"
                   cluster_address = "[::]:8201"
                   tls_disable_client_certs = true
