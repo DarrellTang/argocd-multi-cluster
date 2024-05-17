@@ -4,4 +4,4 @@ metadata:
   name: external-secrets-token
   annotations:
     kubernetes.io/service-account.name: external-secrets
-    type: kubernetes.io/service-account-token
+type: kubernetes.io/service-account-token
