@@ -60,6 +60,7 @@ spec:
                 }
                 service_registration "kubernetes" {}
           serviceAccount:
+            create: true
             createSecret: true
         ui:
           enabled: true
