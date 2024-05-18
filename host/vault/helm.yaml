@@ -60,8 +60,9 @@ spec:
                 }
                 service_registration "kubernetes" {}
           serviceAccount:
-            create: true
             createSecret: true
+            annotations:
+              kubernetes.io/service-account.name: "vault-helm"
         ui:
           enabled: true
   destination:
