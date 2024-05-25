@@ -63,6 +63,8 @@ spec:
             createSecret: true
             annotations:
               kubernetes.io/service-account.name: "vault-helm"
+          extraEnvironmentVars:
+            VAULT_LOG_LEVEL: trace
         ui:
           enabled: true
   destination:
