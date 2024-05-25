@@ -12,6 +12,7 @@ spec:
     helm:
       values: |
         server:
+          logLevel: "debug"
           ingress:
             enabled: true
             activeService: true
@@ -63,8 +64,6 @@ spec:
             createSecret: true
             annotations:
               kubernetes.io/service-account.name: "vault-helm"
-          extraEnvironmentVars:
-            VAULT_LOG_LEVEL: trace
         ui:
           enabled: true
   destination:
