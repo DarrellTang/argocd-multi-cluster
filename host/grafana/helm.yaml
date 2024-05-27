@@ -70,7 +70,7 @@ spec:
             prometheus:
               external:
                 url: https://prometheus-prod-36-prod-us-west-0.grafana.net/api/prom
-              secret_name: grafana-agent-credentials
+              existingSecretName: grafana-agent-credentials
               username_key: prometheus-user
               password_key: access-policy-token
         kube-state-metrics:
