@@ -1,0 +1,95 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-helm
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: k8s-monitoring
+    targetRevision: v1.0.12
+    helm:
+      values: |
+        cluster:
+          name: host.tanghome.us
+        externalServices:
+          prometheus:
+            hostKey: prometheus-host
+            basicAuth:
+              usernameKey: prometheus-user
+              passwordKey: prometheus-password
+            secret:
+              create: false
+              name: grafana-agent-credentials
+              namespace: k8s-monitoring
+          loki:
+            hostKey: loki-host
+            basicAuth:
+              usernameKey: loki-user
+              passwordKey: loki-password
+            secret:
+              create: false
+              name: grafana-agent-credentials
+              namespace: k8s-monitoring
+          tempo:
+            hostKey: tempo-host
+            basicAuth:
+              usernameKey: tempo-user
+              passwordKey: tempo-password
+            secret:
+              create: false
+              name: grafana-agent-credentials
+              namespace: k8s-monitoring
+        metrics:
+          enabled: true
+          cost:
+            enabled: true
+          node-exporter:
+            enabled: true
+        logs:
+          enabled: true
+          pod_logs:
+            enabled: true
+          cluster_events:
+            enabled: true
+        traces:
+          enabled: true
+        receivers:
+          grpc:
+            enabled: true
+          http:
+            enabled: true
+          zipkin:
+            enabled: true
+        opencost:
+          enabled: true
+          opencost:
+            exporter:
+              defaultClusterId: host.tanghome.us
+            prometheus:
+              external:
+                url: https://prometheus-prod-36-prod-us-west-0.grafana.net/api/prom
+        kube-state-metrics:
+          enabled: true
+        prometheus-node-exporter:
+          enabled: true
+        prometheus-operator-crds:
+          enabled: true
+        alloy: {}
+        alloy-events: {}
+        alloy-logs: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: grafana
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  # ignoreDifferences:
+  # - group: admissionregistration.k8s.io
+  #   kind: MutatingWebhookConfiguration
+  #   jqPathExpressions:
+  #   - .webhooks[]?.clientConfig.caBundle
