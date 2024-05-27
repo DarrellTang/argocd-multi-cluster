@@ -18,7 +18,7 @@ spec:
             hostKey: prometheus-host
             basicAuth:
               usernameKey: prometheus-user
-              passwordKey: prometheus-password
+              passwordKey: access-policy-token
             secret:
               create: false
               name: grafana-agent-credentials
@@ -27,7 +27,7 @@ spec:
             hostKey: loki-host
             basicAuth:
               usernameKey: loki-user
-              passwordKey: loki-password
+              passwordKey: access-policy-token
             secret:
               create: false
               name: grafana-agent-credentials
@@ -36,7 +36,7 @@ spec:
             hostKey: tempo-host
             basicAuth:
               usernameKey: tempo-user
-              passwordKey: tempo-password
+              passwordKey: access-policy-token
             secret:
               create: false
               name: grafana-agent-credentials
@@ -70,6 +70,9 @@ spec:
             prometheus:
               external:
                 url: https://prometheus-prod-36-prod-us-west-0.grafana.net/api/prom
+              secret_name: grafana-agent-credentials
+              username_key: prometheus-user
+              password_key: access-policy-token
         kube-state-metrics:
           enabled: true
         prometheus-node-exporter:
