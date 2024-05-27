@@ -22,7 +22,7 @@ spec:
             secret:
               create: false
               name: grafana-agent-credentials
-              namespace: k8s-monitoring
+              namespace: grafana
           loki:
             hostKey: loki-host
             basicAuth:
@@ -31,7 +31,7 @@ spec:
             secret:
               create: false
               name: grafana-agent-credentials
-              namespace: k8s-monitoring
+              namespace: grafana
           tempo:
             hostKey: tempo-host
             basicAuth:
@@ -40,7 +40,7 @@ spec:
             secret:
               create: false
               name: grafana-agent-credentials
-              namespace: k8s-monitoring
+              namespace: grafana
         metrics:
           enabled: true
           cost:
