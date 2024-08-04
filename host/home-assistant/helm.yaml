@@ -20,6 +20,7 @@ spec:
 
         service:
           main:
+            controller: main
             ports:
               http:
                 port: 8123
@@ -33,6 +34,9 @@ spec:
                 paths:
                   - path: /
                     pathType: Prefix
+                    service:
+                      name: main
+                      port: http
 
         persistence:
           config:
