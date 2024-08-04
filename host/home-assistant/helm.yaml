@@ -28,7 +28,7 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - host: home-assistant.tanghome.us
+              - host: home-assistant.host.tanghome.us
                 paths:
                   - path: /
                     pathType: Prefix
