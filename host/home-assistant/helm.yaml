@@ -11,6 +11,9 @@ spec:
     chart: app-template
     helm:
       values: |
+        controller:
+          type: deployment
+
         image:
           repository: ghcr.io/home-assistant/home-assistant
           tag: 2024.7.4
@@ -20,6 +23,8 @@ spec:
 
         service:
           main:
+            controller: 
+              type: ClusterIP
             ports:
               http:
                 port: 8123
@@ -27,12 +32,15 @@ spec:
         ingress:
           main:
             enabled: true
-            ingressClassName: nginx
+            className: nginx
             hosts:
               - host: home-assistant.host.tanghome.us
                 paths:
                   - path: /
                     pathType: Prefix
+                    service:
+                      name: main
+                      port: http
 
         persistence:
           config:
