@@ -31,47 +31,47 @@ spec:
                       secretKeyRef:
                         name: database-homeassistant-user
                         key: POSTGRES_URL
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: http
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: http
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: http
-                  initialDelaySeconds: 0
-                  periodSeconds: 5
-                  timeoutSeconds: 5
-                  failureThreshold: 30
+              probes:
+                liveness:
+                  enabled: true
+                  custom: true
+                  spec:
+                    httpGet:
+                      path: /
+                      port: http
+                    initialDelaySeconds: 0
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    failureThreshold: 5
+                readiness:
+                  enabled: true
+                  custom: true
+                  spec:
+                    httpGet:
+                      path: /
+                      port: http
+                    initialDelaySeconds: 0
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    failureThreshold: 5
+                startup:
+                  enabled: true
+                  custom: true
+                  spec:
+                    httpGet:
+                      path: /
+                      port: http
+                    initialDelaySeconds: 0
+                    periodSeconds: 5
+                    timeoutSeconds: 5
+                    failureThreshold: 30
 
-            resources:
-              requests:
-                cpu: 100m
-                memory: 500M
-              limits:
-                memory: 1000M
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 500M
+                limits:
+                  memory: 1000M
 
 
         service:
