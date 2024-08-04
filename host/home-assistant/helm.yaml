@@ -7,22 +7,23 @@ spec:
   project: default
   source:
     repoURL: https://bjw-s.github.io/helm-charts/
-    targetRevision: 1.0.1  # You may want to check the latest version
+    targetRevision: app-template-3.3.2
     chart: app-template
     helm:
-      valueFiles:
-        - values.yaml
       values: |
         image:
           repository: ghcr.io/home-assistant/home-assistant
           tag: 2024.7.4
-        
+
+        env:
+          TZ: "America/Los_Angeles"
+
         service:
           main:
             ports:
               http:
                 port: 8123
-        
+
         ingress:
           main:
             enabled: true
@@ -32,7 +33,7 @@ spec:
                 paths:
                   - path: /
                     pathType: Prefix
-        
+
         persistence:
           config:
             enabled: true
@@ -40,25 +41,84 @@ spec:
             storageClass: nfs-provisioner
             accessMode: ReadWriteOnce
             size: 1Gi
-        
+
         resources:
           requests:
             cpu: 100m
             memory: 128Mi
           limits:
             memory: 512Mi
-        
+
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: http
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 5
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: http
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 5
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: http
+              initialDelaySeconds: 0
+              periodSeconds: 5
+              timeoutSeconds: 5
+              failureThreshold: 30
+
         metrics:
           enabled: true
           serviceMonitor:
             interval: 1m
-        
-        additionalContainers:
-          example:
-            name: example
-            image: busybox
-            command: ['sh', '-c', 'echo The app is running! && sleep 3600']
-  
+
+        addons:
+          codeserver:
+            enabled: true
+            image:
+              repository: codercom/code-server
+              tag: 4.19.1
+            workingDir: "/config"
+            args:
+              - --auth
+              - "none"
+              - --user-data-dir
+              - "/config/.vscode"
+              - --extensions-dir
+              - "/config/.vscode"
+            volumeMounts:
+              - name: config
+                mountPath: /config
+
+        configmap:
+          config:
+            enabled: true
+            data:
+              configuration.yaml: |
+                http:
+                  use_x_forwarded_for: true
+                  trusted_proxies:
+                    - 10.0.0.0/8
+                    - 172.16.0.0/12
+                    - 192.168.0.0/16
+
   destination:
     server: https://kubernetes.default.svc
     namespace: home-assistant
