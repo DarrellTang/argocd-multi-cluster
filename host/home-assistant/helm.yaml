@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://bjw-s.github.io/helm-charts/
+    targetRevision: 1.0.1  # You may want to check the latest version
+    chart: app-template
+    helm:
+      valueFiles:
+        - values.yaml
+      values: |
+        image:
+          repository: ghcr.io/home-assistant/home-assistant
+          tag: 2024.7.4
+        
+        service:
+          main:
+            ports:
+              http:
+                port: 8123
+        
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - host: home-assistant.tanghome.us
+                paths:
+                  - path: /
+                    pathType: Prefix
+        
+        persistence:
+          config:
+            enabled: true
+            type: pvc
+            storageClass: nfs-provisioner
+            accessMode: ReadWriteOnce
+            size: 1Gi
+        
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+        
+        metrics:
+          enabled: true
+          serviceMonitor:
+            interval: 1m
+        
+        additionalContainers:
+          example:
+            name: example
+            image: busybox
+            command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: home-assistant
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
