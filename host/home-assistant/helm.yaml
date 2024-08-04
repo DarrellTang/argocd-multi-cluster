@@ -36,7 +36,7 @@ spec:
                     pathType: Prefix
                     service:
                       name: main
-                      port: http
+                      port: 80
 
         persistence:
           config:
