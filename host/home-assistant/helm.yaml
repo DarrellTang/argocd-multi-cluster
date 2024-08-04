@@ -11,6 +11,11 @@ spec:
     chart: app-template
     helm:
       values: |
+        controllers:
+          main: 
+            type: deployment
+            enabled: true
+
         image:
           repository: ghcr.io/home-assistant/home-assistant
           tag: 2024.7.4
@@ -20,7 +25,6 @@ spec:
 
         service:
           main:
-            controller: main
             ports:
               http:
                 port: 8123
