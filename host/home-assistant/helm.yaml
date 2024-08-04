@@ -12,20 +12,71 @@ spec:
     helm:
       values: |
         controllers:
-          main: 
+          home-assistant: 
             type: deployment
             enabled: true
+        controllers:
+          home-assistant:
+            annotations:
+              reloader.stakater.com/auto: "true"
+            containers:
+              app:
+                image:
+                  repository: ghcr.io/home-assistant/home-assistant
+                  tag: 2024.7.4
+                env:
+                  TZ: "America/Los_Angeles"
+                  SECRET_RECORDER_DB_URL:
+                    valueFrom:
+                      secretKeyRef:
+                        name: database-homeassistant-user
+                        key: POSTGRES_URL
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 30
 
-        image:
-          repository: ghcr.io/home-assistant/home-assistant
-          tag: 2024.7.4
+            resources:
+              requests:
+                cpu: 100m
+                memory: 500M
+              limits:
+                memory: 1000M
 
-        env:
-          TZ: "America/Los_Angeles"
 
         service:
           main:
-            controller: main
+            controller: home-assistant
             ports:
               http:
                 port: 8123
@@ -50,48 +101,6 @@ spec:
             storageClass: nfs-provisioner
             accessMode: ReadWriteOnce
             size: 1Gi
-
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            memory: 512Mi
-
-        probes:
-          liveness:
-            enabled: true
-            custom: true
-            spec:
-              httpGet:
-                path: /
-                port: http
-              initialDelaySeconds: 0
-              periodSeconds: 10
-              timeoutSeconds: 5
-              failureThreshold: 5
-          readiness:
-            enabled: true
-            custom: true
-            spec:
-              httpGet:
-                path: /
-                port: http
-              initialDelaySeconds: 0
-              periodSeconds: 10
-              timeoutSeconds: 5
-              failureThreshold: 5
-          startup:
-            enabled: true
-            custom: true
-            spec:
-              httpGet:
-                path: /
-                port: http
-              initialDelaySeconds: 0
-              periodSeconds: 5
-              timeoutSeconds: 5
-              failureThreshold: 30
 
         metrics:
           enabled: true
