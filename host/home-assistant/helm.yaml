@@ -62,12 +62,12 @@ spec:
                       timeoutSeconds: 5
                       failureThreshold: 30
 
-              resources:
-                requests:
-                  cpu: 100m
-                  memory: 500M
-                limits:
-                  memory: 1000M
+                resources:
+                  requests:
+                    cpu: 100m
+                    memory: 500M
+                  limits:
+                    memory: 1000M
 
 
         service:
