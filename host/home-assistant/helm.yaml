@@ -12,15 +12,11 @@ spec:
     helm:
       values: |
         controllers:
-          home-assistant: 
-            type: deployment
-            enabled: true
-        controllers:
           home-assistant:
             annotations:
               reloader.stakater.com/auto: "true"
             containers:
-              app:
+              home-assistant:
                 image:
                   repository: ghcr.io/home-assistant/home-assistant
                   tag: 2024.7.4
@@ -31,40 +27,40 @@ spec:
                       secretKeyRef:
                         name: database-homeassistant-user
                         key: POSTGRES_URL
-              probes:
-                liveness:
-                  enabled: true
-                  custom: true
-                  spec:
-                    httpGet:
-                      path: /
-                      port: http
-                    initialDelaySeconds: 0
-                    periodSeconds: 10
-                    timeoutSeconds: 5
-                    failureThreshold: 5
-                readiness:
-                  enabled: true
-                  custom: true
-                  spec:
-                    httpGet:
-                      path: /
-                      port: http
-                    initialDelaySeconds: 0
-                    periodSeconds: 10
-                    timeoutSeconds: 5
-                    failureThreshold: 5
-                startup:
-                  enabled: true
-                  custom: true
-                  spec:
-                    httpGet:
-                      path: /
-                      port: http
-                    initialDelaySeconds: 0
-                    periodSeconds: 5
-                    timeoutSeconds: 5
-                    failureThreshold: 30
+                probes:
+                  liveness:
+                    enabled: true
+                    custom: true
+                    spec:
+                      httpGet:
+                        path: /
+                        port: http
+                      initialDelaySeconds: 0
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      failureThreshold: 5
+                  readiness:
+                    enabled: true
+                    custom: true
+                    spec:
+                      httpGet:
+                        path: /
+                        port: http
+                      initialDelaySeconds: 0
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      failureThreshold: 5
+                  startup:
+                    enabled: true
+                    custom: true
+                    spec:
+                      httpGet:
+                        path: /
+                        port: http
+                      initialDelaySeconds: 0
+                      periodSeconds: 5
+                      timeoutSeconds: 5
+                      failureThreshold: 30
 
               resources:
                 requests:
