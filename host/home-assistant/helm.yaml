@@ -87,7 +87,7 @@ spec:
                   - path: /
                     pathType: Prefix
                     service:
-                      name: main
+                      name: home-assistant-helm
                       port: 80
 
         persistence:
