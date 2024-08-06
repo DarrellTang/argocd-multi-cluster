@@ -34,7 +34,7 @@ spec:
                     spec:
                       httpGet:
                         path: /
-                        port: http
+                        port: 80
                       initialDelaySeconds: 0
                       periodSeconds: 10
                       timeoutSeconds: 5
@@ -45,7 +45,7 @@ spec:
                     spec:
                       httpGet:
                         path: /
-                        port: http
+                        port: 80
                       initialDelaySeconds: 0
                       periodSeconds: 10
                       timeoutSeconds: 5
