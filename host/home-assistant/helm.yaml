@@ -72,12 +72,13 @@ spec:
 
         service:
           home-assistant:
+            controller: home-assistant
             ports:
               http:
                 port: 8123
 
         ingress:
-          home-assistant:
+          main:
             enabled: true
             className: nginx
             hosts:
@@ -87,7 +88,7 @@ spec:
                     pathType: Prefix
                     service:
                       name: home-assistant-helm
-                      # port: http
+                      port: 80
 
         persistence:
           config:
