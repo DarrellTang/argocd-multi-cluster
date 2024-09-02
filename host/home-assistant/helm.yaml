@@ -97,6 +97,9 @@ spec:
             storageClass: nfs-provisioner
             accessMode: ReadWriteOnce
             size: 1Gi
+            globalMounts:
+            - path: /config
+              readOnly: false
 
         metrics:
           enabled: true
