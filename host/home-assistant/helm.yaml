@@ -91,7 +91,7 @@ spec:
                       port: 8123
 
         persistence:
-          config:
+          config-volume:
             enabled: true
             type: persistentVolumeClaim
             storageClass: nfs-provisioner
@@ -100,6 +100,12 @@ spec:
             globalMounts:
             - path: /config
               readOnly: false
+          config-file:
+            type: configMap
+            name: home-assistant-helm-config
+            globalMounts:
+              - path: /config/configuration.yaml
+                subPath: configuration.yaml
 
         metrics:
           enabled: true
