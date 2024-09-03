@@ -82,7 +82,7 @@ spec:
             enabled: true
             className: nginx
             annotations:
-              cert-manager.io/cluster-issuer: "letsencrypt-production"
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
             hosts:
               - host: home-assistant.host.tanghome.us
                 paths:
