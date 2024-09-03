@@ -141,6 +141,7 @@ spec:
             enabled: true
             data:
               configuration.yaml: |
+                default_config:
                 http:
                   use_x_forwarded_for: true
                   trusted_proxies:
