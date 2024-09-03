@@ -91,6 +91,10 @@ spec:
                     service:
                       name: home-assistant-helm
                       port: 8123
+            tls:
+            - hosts:
+                - home-assistant.host.tanghome.us
+              secretName: home-assistant-tls
 
         persistence:
           config-volume:
