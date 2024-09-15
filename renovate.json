@@ -1,16 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": ["renovate"],
+  "labels": ["renovate"]
   "extends": [
     "config:recommended",
     ":dependencyDashboard"
   ],
-  "packageRules": [
-    {
-      "matchManagers": [
-        "argocd"
-      ],
-      "fileMatch": ["helm\\.yaml$"]
-    }   
-  ]
+  "enabledManagers": ["argocd"]
+  "argocd": {
+    "fileMatch": ["helm\\.yaml$"]
+  }
 }
